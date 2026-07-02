@@ -13,10 +13,18 @@ load_dotenv_file() {
   source "$env_file"
   set +a
   export GOOGLE_GENAI_USE_VERTEXAI="${GOOGLE_GENAI_USE_VERTEXAI:-FALSE}"
-  if [[ -z "${GOOGLE_API_KEY:-}" ]]; then
-    echo "⚠ GOOGLE_API_KEY trống trong .env"
+  export LAB_MODEL_PROVIDER="${LAB_MODEL_PROVIDER:-google}"
+
+  if [[ "$LAB_MODEL_PROVIDER" == "openai" ]]; then
+    if [[ -z "${OPENAI_API_KEY:-}" || "${OPENAI_API_KEY:-}" == "your_openai_api_key_here" ]]; then
+      echo "⚠ .env loaded (provider=openai, OPENAI_API_KEY thiếu hoặc đang là placeholder)"
+    else
+      echo "→ .env loaded (provider=openai, model=${OPENAI_MODEL:-openai/gpt-4o-mini})"
+    fi
+  elif [[ -z "${GOOGLE_API_KEY:-}" ]]; then
+    echo "⚠ .env loaded (provider=google, GOOGLE_API_KEY trống)"
   else
-    echo "→ .env loaded (GOOGLE_API_KEY set)"
+    echo "→ .env loaded (provider=google, model=${GOOGLE_MODEL:-gemini-2.5-flash})"
   fi
 }
 

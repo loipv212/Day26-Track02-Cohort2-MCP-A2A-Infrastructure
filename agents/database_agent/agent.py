@@ -11,6 +11,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from lab_utils.env_setup import load_lab_env, require_api_key
+from lab_utils.model_config import get_agent_model
 
 load_lab_env()
 require_api_key()
@@ -56,7 +57,7 @@ def run_sql_query(sql: str) -> dict:
 
 root_agent = Agent(
     name="database_agent",
-    model="gemini-2.5-flash",
+    model=get_agent_model(),
     description="Truy vấn database chỉ đọc và trả về metrics có cấu trúc.",
     instruction=(
         "Bạn là chuyên gia database. Chỉ chạy truy vấn SELECT qua run_sql_query. "

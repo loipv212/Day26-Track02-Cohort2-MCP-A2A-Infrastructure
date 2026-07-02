@@ -13,7 +13,8 @@ conda activate pii-env
 
 cd Day26-MCP_A2A_Infrastructure
 pip install -r requirements.txt
-cp .env.example .env   # thêm GOOGLE_API_KEY
+cp .env.example .env   # thêm GOOGLE_API_KEY hoặc OPENAI_API_KEY
+# Nếu dùng OpenAI: đặt LAB_MODEL_PROVIDER=openai và OPENAI_MODEL=openai/gpt-4o-mini trong .env
 export PYTHONPATH=$PWD
 jupyter notebook day26_mcp_a2a_lab.ipynb
 ```

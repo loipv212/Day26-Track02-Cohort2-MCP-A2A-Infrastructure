@@ -64,3 +64,12 @@ class SemanticRouter:
             return fallback
         name, score = candidates[0]
         return name if score >= self.threshold else fallback
+
+    def route_with_chain(self, request: str, chain: list[str]) -> str:
+        """Route request; if confidence is low, return the first fallback in chain."""
+        candidates = self.route(request, top_k=1)
+        if candidates:
+            name, score = candidates[0]
+            if score >= self.threshold:
+                return name
+        return chain[0] if chain else "orchestrator"

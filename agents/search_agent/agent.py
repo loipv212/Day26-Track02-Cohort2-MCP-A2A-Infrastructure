@@ -11,6 +11,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from lab_utils.env_setup import load_lab_env, require_api_key
+from lab_utils.model_config import get_agent_model
 
 load_lab_env()
 require_api_key()
@@ -59,7 +60,7 @@ def search_web(query: str) -> dict:
 
 root_agent = Agent(
     name="search_agent",
-    model="gemini-2.5-flash",
+    model=get_agent_model(),
     description="Tìm kiếm web và trả về đoạn trích liên quan cho tác vụ nghiên cứu.",
     instruction=(
         "Bạn là chuyên gia tìm kiếm web. Dùng search_web để tìm thông tin. "
